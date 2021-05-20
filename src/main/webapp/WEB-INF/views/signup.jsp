@@ -1,11 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <%@ page contentType="text/html; charset=ISO-8859-1" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+<script type="text/javascript">
+function func()
+{
+	var pass=document.myform.password.value;
+	var repass=document.myform.repassword.value;
+	var n = pass.localeCompare(repass);
+		if(n!=0)
+		{
+			alert("password and re-type password should match!!");
+			location.replace(location)
+		}
+		else
+		{
+		window.location = "/save-user";
+		}
+	}
+</script>
+
     <style>
     body{
     background-image: url('https://images8.alphacoders.com/100/thumb-1920-1003220.png');
@@ -48,7 +67,7 @@
     padding: 5px;
     
 }
-#signupSubmit{
+.form button{
     font-family:"Poppins", sans-serif;
     text-transform: uppercase;
     cursor: pointer;
@@ -70,6 +89,10 @@
     margin-left: 10px;
     
 }
+#i12{
+  color: red;
+  font-size: 13px;
+}
     </style>
 <title>Sign Up</title>
     
@@ -81,20 +104,24 @@
         
         <div class="sign-up-form">
     	<div class="form" >
-    	<form class="register-form"  action="maincontroller" method="POST" action="save-user">
+    	<form:form class="register-form"  onsubmit="func()"  method="POST" action="save-user" modelAttribute="user" name="myform">
             <h3>User Registration</h3>
-            <input type="hidden" name="id" value="${user.id} /">
-            <input type="text" placeholder="User Name" name="username" value="${user.username} "/>
-            <input  type="text" placeholder="First Name" name="firstname" value="${user.firstname} "/>
-            <input type="text" placeholder="Last Name" name="lastname" value="${user.lastname} "/>
-            <input type="email" placeholder="Email ID" name="email" value="${user.email}"/>
-            <input type="password" placeholder="Password" name="password" value="${user.password}">
-            <input type="password" placeholder="Re-enter Password" name="repass"/>
-            <input type= "submit" value="Register" id="signupSubmit"/>
+            <form:input type="hidden" name="id" value="${user.id}" path="id" />
+            <form:input type="text" placeholder="User Name" name="username" path="username"  value="${user.username} "/>
+            <form:errors id="i12" path="username" cssClass="text-danger" />
+            <form:input  type="text" placeholder="Full Name" name="fullname" path="fullname" value="${user.fullname} "/>
+            <form:errors id="i12" path="fullname" cssClass="text-danger" />
+            <form:input type="email" placeholder="Email ID" name="email" path="email" value="${user.email}"/>
+            <form:errors id="i12" path="email" cssClass="text-danger" />
+            <form:input type="password" placeholder="Password" name="password" path="password" value="${user.password}"/>
+             <form:errors id="i12" path="password" cssClass="text-danger" />
+            <input type="password" placeholder="Re-enter Password" name="repassword" />
+         
+            <form:button type="submit">Register</form:button>
             <p class="message">Already Registered? <a href="login"><strong>Login Here</strong></a></p>
 
         
-       </form>  
+       </form:form>  
      </div>
     </div>       
 
