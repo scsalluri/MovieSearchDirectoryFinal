@@ -16,18 +16,15 @@ function func()
 		if(n!=0)
 		{
 			alert("password and re-type password should match!!");
-			location.replace(location)
+			return false;
 		}
-		else
-		{
-		window.location = "/save-user";
-		}
+		
 	}
 </script>
 
     <style>
     body{
-    background-image: url('https://images8.alphacoders.com/100/thumb-1920-1003220.png');
+     background-image: url('/resources/images/backdrop.png');
     /*height: 100vh;
     background-color: #000000;*/
     background-size: cover;
@@ -104,7 +101,7 @@ function func()
         
         <div class="sign-up-form">
     	<div class="form" >
-    	<form:form class="register-form"  onsubmit="func()"  method="POST" action="save-user" modelAttribute="user" name="myform">
+    	<form:form class="register-form"  onsubmit="return func()"  method="POST" action="save-user" modelAttribute="user" name="myform">
             <h3>User Registration</h3>
             <form:input type="hidden" name="id" value="${user.id}" path="id" />
             <form:input type="text" placeholder="User Name" name="username" path="username"  value="${user.username} "/>

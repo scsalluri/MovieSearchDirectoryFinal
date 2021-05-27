@@ -1,6 +1,14 @@
 package com.moviesearch.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
+
+
 import javax.servlet.http.HttpServletRequest;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +20,16 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.Validator;
+
+import com.moviesearch.model.Movie;
 import com.moviesearch.model.User;
+import com.moviesearch.repository.MovieRepository;
+import com.moviesearch.service.MovieService;
 import com.moviesearch.service.UserService;
 
 @Controller
@@ -24,23 +39,35 @@ public class maincontroller {
 	private Validator validator;
 	@Autowired
 	public maincontroller( Validator validator) {
-		System.out.println("in parametized constr of controller with validator");
 		this.validator = validator;
 	}	
 	
 @Autowired
 private UserService userService;
 @Autowired
+private MovieService movieService;
+@Autowired
 private User user;
+
+@Autowired
+private Movie movie;
+public static String uploadDirectory=System.getProperty("user.dir")+"/src/main/webapp/imagedata";
 @RequestMapping("/")
 public String home()
 {	
-	return "main";
+	return "mainPage";
 }
+@RequestMapping("movieForm")
+public String movieForm(Model model)
+{	
+	model.addAttribute("movie",movie);
+	return "movieForm";
+}
+
 @RequestMapping(value="/login")
 public String loginPage()
 {
-	return "login_page";
+	return "loginPage";
 }
 @RequestMapping(value="/register")
 public String regisgterPage(Model model)
@@ -68,7 +95,43 @@ public String registration( @ModelAttribute("user") @Valid User user ,Errors err
 	}
 	rs.addFlashAttribute("message","Sucessfully Registration");
 	userService.saveMyUser(user);
-	return "login_page";
+	return "loginPage";
+}
+
+@RequestMapping("/save-movie")
+
+public String addMovie(
+		/*
+		 * @RequestParam("movie_name") String movie_name,@RequestParam("release_date")
+		 * String release_date,@RequestParam("runtime") int
+		 * runtime,@RequestParam("tagline") String tagline,@RequestParam("plot") String
+		 * plot,@RequestParam("trailer") String trailer,
+		 * 
+		 * @RequestParam("lang") String lang,@RequestParam("company") String
+		 * company,@RequestParam("castnames") String castnames,
+		 * 
+		 * @RequestParam("category") String category,
+		 * 
+		 * @RequestParam("country") String country,
+		 */@RequestParam("img") MultipartFile file)
+{
+	System.out.print("hello");
+	StringBuilder fileNames = new StringBuilder();
+	String filename= file.getOriginalFilename().substring(file.getOriginalFilename().length()-4);
+	Path fileNameAndPath =Paths.get(uploadDirectory,filename);
+	try {
+		Files.write(fileNameAndPath, file.getBytes());
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	System.out.print(filename);
+	/*
+	 * System.out.print(movie_name); System.out.print(release_date);
+	 * 
+	 * java.sql.Date date= java.sql.Date.valueOf(release_date); Movie m= new
+	 * Movie(movie_name,tagline,plot,trailer, date,runtime,trailer); //
+	 * movieService.saveMovie(m);
+	 */	return "movie.getMovieNmae";
 }
 
 
@@ -78,15 +141,16 @@ public String loginuser(@Valid @ModelAttribute User user,Errors error,BindingRes
 
 if(userService.findByUsernameAndPassword(user.getUsername(),user.getPassword())!=null)
 	{
+	System.out.println(user.getRole());
 		 if(user.getUsername().equals("Admin"))
-			 return "adminmain";
+			 return "adminPage";
 		 else
-			 return "normalpage";
+			 return "registeredUser";
 	}
 	else
 	{
 		request.setAttribute("error", "Invaid Username or Password");
-		return "login_page";
+		return "loginPage";
 	}
 	
 }

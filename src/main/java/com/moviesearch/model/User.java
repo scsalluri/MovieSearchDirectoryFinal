@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,10 @@ private int id;
 	@NotBlank(message="email cannot be Null")
 	private String email;
 	@NotBlank(message="password cannot be Null")
+	@Size(min = 8, max = 20, message= "Password Should Be In Between 8 and 20 Characters")
 	private String password;
+	private int role;
+	
 	public User()
 	{
 		
@@ -33,6 +37,14 @@ private int id;
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -66,6 +78,7 @@ private int id;
 		this.fullname = fullname;
 		this.email = email;
 		this.password = password;
+		this.role=0;
 	}
 	@Override
 	public String toString() {

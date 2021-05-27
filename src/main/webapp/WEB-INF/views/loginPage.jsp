@@ -7,7 +7,7 @@
 <head>
     <style>
     body{
-    background-image: url('https://images8.alphacoders.com/100/thumb-1920-1003220.png');
+   background-image: url('/resources/images/backdrop.png');
     height: 100vh;
     background-color: #000000;
     background-size: cover;

@@ -9,7 +9,7 @@
 
 <style>
 body {
-  background-image: url('https://images8.alphacoders.com/100/thumb-1920-1003220.png');
+  background-image: url('/resources/images/backdrop.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -37,7 +37,7 @@ body {
     position:relative;
     z-index: 1;
     background: #000000;
-    max-width: 460px;
+    max-width: 700px;
     margin: 0 auto ;
     padding: 45px;
     text-align: center;
@@ -84,7 +84,7 @@ body {
 </div>
 <div class="topnav">
   <a href="#">
-  <img src="http://www.clker.com/cliparts/R/6/l/K/8/R/search-icon-red-hi.png" width="60" height="50">
+  <img src="/resources/images/search.png" width="60" height="50">
   </a>
   
 </div>
@@ -95,33 +95,26 @@ body {
       <tr>
           <td><figure>
 
-              <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Drama-film-stub-icon.svg/1200px-Drama-film-stub-icon.svg.png"  width="60" height="60"></a>
-              <figcaption><a href="#">MOVIES</a></figcaption>
+              <a href="movieForm"><img src="/resources/images/add movie.png"  width="100" height="100"></a>
+              
               </figure></td>
 
+        
           <td><figure>
 
-              <a href="#"><img src="https://as2.ftcdn.net/jpg/01/40/48/37/500_F_140483708_dF4sTuJhpqx6jywpDW5Qt5sqL7gfDkHh.jpg"  width="50" height="50"></a>
-              <figcaption><a href="#">COMPANY</a></figcaption>
+              <a href="#"><img src="/resources/images/movie award.png"  width="100" height="100"></a>
+              
               </figure></td>
+   
           <td><figure>
 
-              <a href="#"><img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/movie-award-2583133-2153617.png"  width="50" height="50"></a>
-              <figcaption><a href="#">MOVIE AWARD</a></figcaption>
+              <a href="#"><img src="/resources/images/cast.png"  width="100" height="100"></a>
               </figure></td>
-      </tr>
-         <tr>
-          <td><figure>
-
-              <a href="#"><img src="https://icon-library.com/images/casting-icon/casting-icon-15.jpg"  width="50" height="50"></a>
-              <figcaption><a href="#">CAST</a></figcaption>
+              
+           <td><figure>
+              <a href="#"><img src="/resources/images/edit_movie.png"  width="100" height="100"></a>
               </figure></td>
 
-          <td><figure>
-
-              <a href="#"><img src="https://lh3.googleusercontent.com/proxy/yEw3TW65IW_Y_RKJvit0kLgctGE1wSMVxTd3WMVkU62PxIA4llS-LGmgBcL2jvvwV9D_qHInwD4Ao4nV8D3IukG9SrhmGoFCOHMT_QmgHs0dpQ"  width="50" height="50"></a>
-              <figcaption><a href="#">TRAILER</a></figcaption>
-              </figure></td>
       </tr>
 
 
