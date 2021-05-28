@@ -47,12 +47,7 @@ function deleteRows(){
 		alert('There should be atleast one row');
 	}
 }
-function func()
-{
-	 var lang=document.getElementById('lang');
-	var val= lang.options[lang.selectedIndex].value; 
-	alert(val);
-}
+
 </script>
     
   <style>
@@ -124,7 +119,7 @@ function func()
 </head>
     
 <body>
-   <form  class="fields" onsubmit="return func()" action="save-movie" name="myform">
+   <form  class="fields"  action="save-movie" name="myform" enctype="multipart/form-data" method="post">
     <div class="main">
         <h1 >MOVIE FORM</h1>
             <img  src="https://findicons.com/files/icons/1261/sticker_system/256/movie.png" alt="movie icon" style="width: 100px;height: 100px;margin-left: 13cm;margin-top: -2cm;">
@@ -200,7 +195,7 @@ function func()
         </div >   
         <div class="uploadform" >
         <img id="output_image"/>
-        <input id="choose-file" type="file" accept="image/png, image/jpeg" onchange="preview_image(event)" name="img" id="img"><br>
+        <input id="choose-file" type="file" accept="image/png, image/jpeg" onchange="preview_image(event)" name="image" id="image	"><br>
          
        </div>
       

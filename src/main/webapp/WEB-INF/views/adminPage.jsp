@@ -102,7 +102,7 @@ body {
         
           <td><figure>
 
-              <a href="#"><img src="/resources/images/movie award.png"  width="100" height="100"></a>
+              <a href="awardForm"><img src="/resources/images/movie award.png"  width="100" height="100"></a>
               
               </figure></td>
    

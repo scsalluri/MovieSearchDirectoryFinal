@@ -4,8 +4,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.moviesearch.model.Movie;
+import com.moviesearch.model.Movies;
 import com.moviesearch.repository.MovieRepository;
+
 
 @Service
 @Transactional
@@ -15,8 +16,12 @@ public class MovieService {
 	{
 		this.movieRepository=movieRepository;
 	}
-public void saveMovie(Movie movie)
+public void saveMovie(Movies movie)
 {
 movieRepository.save(movie);	
+}
+public Movies findByMovieName(String movieName)
+{
+	return movieRepository.findByMovieName(movieName);
 }
 }

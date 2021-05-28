@@ -179,11 +179,11 @@ body {
   
             <td>
                 
-              <form action="/action_page.php">&nbsp;&nbsp;&nbsp;
+              <form action="nameSearch">&nbsp;&nbsp;&nbsp;
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <div class="sb-example-1">
                     <div class="search">
-                       <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                       <input type="text" id="movname" name="movname" class="searchTerm" placeholder="What are you looking for?">
                        <button type="submit" class="searchButton">
                          <i class="fa fa-search"></i>
                       </button>

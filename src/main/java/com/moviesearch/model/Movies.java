@@ -2,6 +2,7 @@ package com.moviesearch.model;
 
 import java.sql.Date;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,26 +10,25 @@ import javax.persistence.Table;
 
 
 import org.springframework.stereotype.Component;
-
-@Entity
-@Table(name="movie_table")
 @Component
-public class Movie {
+@Entity
+@Table(name="movie")
+public class Movies {
 @Id
 private int movie_id;
-private String movie_name;
+private String movieName;
 private String tagline;
 private String plot;
-private String poster;
+private byte[] poster;
 private int runtime;
 private int no_of_user;
 private int user_rating;
 private String trailer;
-
 private java.sql.Date release_date;
-public Movie( String movie_name, String tagline,String plot, String poster, Date release_date, int runtime, String trailer) {
+
+public Movies( String movieName, String tagline,String plot, byte[] poster, Date release_date, int runtime, String trailer) {
 	super();
-	this.movie_name = movie_name;
+	this.movieName = movieName;
 	this.tagline = tagline;
 	this.plot = plot;
 	this.poster = poster;
@@ -36,7 +36,7 @@ public Movie( String movie_name, String tagline,String plot, String poster, Date
 	this.runtime = runtime;
 	this.trailer = trailer;
 }
-public Movie() {
+public Movies() {
 	super();
 }
 
@@ -47,11 +47,11 @@ public int getMovie_id() {
 public void setMovie_id(int movie_id) {
 	this.movie_id = movie_id;
 }
-public String getMovie_name() {
-	return movie_name;
+public String getmovieName() {
+	return movieName;
 }
-public void setMovie_name(String movie_name) {
-	this.movie_name = movie_name;
+public void setmovieName(String movieName) {
+	this.movieName = movieName;
 }
 public String getTagline() {
 	return tagline;
@@ -65,10 +65,10 @@ public String getPlot() {
 public void setPlot(String plot) {
 	this.plot = plot;
 }
-public String getPoster() {
+public byte[] getPoster() {
 	return poster;
 }
-public void setPoster(String poster) {
+public void setPoster(byte[] poster) {
 	this.poster = poster;
 }
 public java.sql.Date getRelease_date() {
