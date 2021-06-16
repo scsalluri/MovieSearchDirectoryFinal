@@ -2,122 +2,65 @@
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html; charset=ISO-8859-1" %>   
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
-body {
-  background-image: url('/resources/images/backdrop.png');
-  
-  background-attachment: fixed;
-  background-size: 100% 100%;
-    font-family: "Poppins", sans-serif;
-}
-    header {
-    height: 50px;
-    background-color: #ffffff;
-}
-#header-container {
-    width: 100%;
-    margin: auto;
-}
-.col-2 {
-    width: 32%;
-    float: left;
-}
-    .menu {
-    margin-top: 32px;  
-}
-    .menu li {
-    list-style-type: none;
-    display: inline;
-    font-size: .85em;
-    color: #000000;
-    padding-right: 30px;
-}
-    .logout-btn{
-         display: inline-block;
-    float: right;
-        padding-right: 50px;
-        margin-top: 32px;
-    }
+		body {
+		  background-image: url('/resources/images/mainPage.png');
+		  
+		  background-attachment: fixed;
+		  background-size: 100% 100%;
+		}
+		.container {
+		  position: relative;
+		}
+		
+		.topnav{
+		
+		  position:absolute;
+		  top: 18px;
+		  right: 50px;
+		  font-size: 28px;
+		}
+		#adminchoice{
+		    font-family: "Poppins", sans-serif;
+		    position:relative;
+		    z-index: 1;
+		    background: #000000;
+		    max-width: 960px;
+		 
+		    top:70px;
+		    margin: 0 auto ;
+		    padding: 25px;
+		    text-align: center;
+		    opacity: 80%;
+		    padding-top: 40px;
+		    left:10px;
+		    
+				}
 
-
-
-#adminchoice{
-    font-family: "Poppins", sans-serif;
-    position:relative;
-    z-index: 1;
-    background: #000000;
-    max-width: 960px;
-    
-    top:50px;
-    margin: 0 auto ;
-    padding: 25px;
-    text-align: center;
-    opacity: 80%;
-    padding-top: 40px;
-    left:10px;
-    
-}
-      a:link {
-            color: red;
-            background-color: transparent;
-            text-decoration: none;
-        }
-        a:visited {
-             color: red;
-             background-color: transparent;
-             text-decoration: none;
-        }
-        a:hover {
-          color: red;
-          background-color: transparent;
-          text-decoration: underline;
-        }
-        a:active {
-          color: red;
-          background-color: transparent;
-          text-decoration: underline;
-        }
-    h2{
-            text-align: left;
-            
-            border-left: 5px solid red;
-            padding-left: 10px;
-    }
-    #cars{
-        width: 150px;
-        height: 40px;
-    }
-    
-        
-    }
-    form{
-        font-size: large;
-        font-weight: bold;
-    }
-    .sb-example-1 .search {
-            width: 120%;
-            position: relative;
-            display: flex;
-            left: 80%;
-            bottom: 130px;
-            }
-            .sb-example-1 .searchTerm {
-            width: 100%;
-            border: 3px solid gray;
+            .searchTerm {
+            width: 35%;
+            border: 5px solid gray;
             border-right: none;
-            padding: 5px;
+            padding: 6px;
             border-radius: 5px 0 0 5px;
             outline: none;
             color: #9DBFAF;
             }
-            .sb-example-1 .searchTerm:focus{
+            .searchTerm:focus{
             color: gray;
             }
-            .sb-example-1 .searchButton {
-            width: 40px;
+            .searchButton {
+            margin-left:0px;
+            width: 35px;
             height: 50px;
             border: 1px solid gray;
             background: gray;
@@ -127,10 +70,53 @@ body {
             cursor: pointer;
             font-size: 20px;
             }
-            .sb-example-1 .searchButton i{
+            .searchButton i{
             color: white;
             }
+   .heading{
+            text-align: left;
+            font-size: 25px;
+            border-left: 5px solid red;
+            padding-left: 10px;
+    }
+#header-container {
+    width: 100%;
+    margin: auto;
+    font-size: 30px;
 
+}
+
+    .menu li {
+    list-style-type: none;
+    display: inline;
+    font-size: .85em;
+	float:left;  
+    padding-right: 30px;
+   
+}
+    .logout-btn{
+         display: inline-block;
+   		 float: right;
+        padding-right: 50px;
+     
+    }
+
+
+
+    #search{
+        padding-bottom:20px ;
+        
+    }
+   
+    form{
+        font-size: large;
+        font-weight: bold;
+    }
+    
+.tablepad
+{
+padding-left: 30px;
+}
 </style>
 <head>
 <meta charset="ISO-8859-1">
@@ -140,209 +126,185 @@ body {
     <header>
 
         <div id="header-container">
-            <div class="col-2">
+          
                 <nav>
                     <ul class="menu">
-                        <li>Hi, Username</li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Personalized Page</a> </li>
+                        <li style="  color: white;"> <a href="#">${username}</a></li>
+                        <li><a href="reports">Reports</a></li>
+                        <li><a href="personalized">Personalized Page</a> </li>
                     </ul>  
                 </nav>
-            </div>
-  
-        <div class="col-3">
-        <a href="#" class="logout-btn"><strong></strong>Logout</a>
-    </div>
+          
+        <a href="logout" class="logout-btn"><strong></strong>Logout</a>
             
     </div>
     </header>
 
-  
-
-	
-	<!-- <div id="arrow">
-		<MARQUEE direction="down" ><img src="/resources/images/arrow.png" height="80px"></H1></MARQUEE>
-	</div> -->
-		
-
     <div id="adminchoice">
     
 		
-		<TABLE WIDTH=100% direction="left" style="color:red">
+		<TABLE  style="color:red; width: 100% ">
 			<TR>
 			<TD><MARQUEE><H1 style="color:#FFA500">Welcome to<img src="/resources/images/icon.png" height="80px"></H1></MARQUEE></TD>
 			
 			</TR>
 		</TABLE>
 		
-    <h2 style="color: white">Search by Movie Name</h2>
-
-
-    <table style="color:white">
-        <tr>
-            <td>
-
-              <form action="/action_page.php">
-              <h2>Specialised Search</h2>
-              
-              <br>
-              </form>
-      
-            </td>
-  
-            <td>
-                
-              <form action="/action_page.php">&nbsp;&nbsp;&nbsp;
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                <div class="sb-example-1">
-                    <div class="search">
-                       <input type="text" class="searchTerm" placeholder="What are you looking for?">
+ 
+ <form action="registerdUsernameSearch">
+    <table style="color:white; align-self: left; margin-top: 50px; width: 100%" >
+     
+        <tr height="50px"> 
+            
+               <td align="left">
+               
+             
+                  
+               
+                     <label class="heading">Search by Movie Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" id="movname" name="movname" required min="1" class="searchTerm" placeholder="What are you looking for?">
                        <button type="submit" class="searchButton">
                          <i class="fa fa-search"></i>
                       </button>
-                    </div>
-                 </div>
-              <br>
-      
-              </form>
-  
-  
-              </td>
+                  
+             
+               
+               
+                     </td>
           </tr>
-          <div>
-		    <h3 style="color:red;">OR</h3>
-		  </div>
+         
+          <tr height="50px"> 
+          <td>
+		   <label style="color:red;">OR</label>
+		   </td>
+		 </tr>
+		    <tr height="50px">
+          <td  align="left">
+		   <label class="heading">Specialized Search</label>
+		   </td>
+		 </tr>
           </table>
     
-
+    </form>
           
 
-
-    <table style="color: red">
+<form action="specializedSearch">
+    <table class="t3" style="color: red; margin-top: 30px;width:100%;">
       <tr>
           <td>
-            <form action="/action_page.php">
-            <label for="cars">Genre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select name="cars" id="cars">
-                <option value="Select..">Select...</option>
-                <option value="Action">Action</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Science Fiction">Science Fiction</option>
-                <option value="Horror">Horror</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Drama">Drama</option>
-            </select>
-            <br>
+            
+            <label for="Genre">Genre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <select style="padding: 5px;width:150px" name="genre" id="genre" > 
+           <option value="Select Genre">Select Genre</option>
+			<c:forEach var="gens" items="${gen}">
+	         	  <option value="${gens.genreName}">${gens.genreName}</option>
+	          	 </c:forEach>
+			</select> 
+            <br></br>
           
-            </form>
-    
-          
-          </td>
-
-          <td>
-            <form action="/action_page.php">&nbsp;&nbsp;&nbsp;
-            <label for="cars">Director:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select name="cars" id="cars">
-                <option value="Select....">Select...</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-            <br>
-          
-    
-            </form>
-
-
-            </td>
-        </tr>
-    
-        <tr>
-          <td>
-            <form action="/action_page.php">
-            <label for="cars">Actor:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select name="cars" id="cars">
-                <option value="Select....">Select...</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-            <br>
-         
-            </form>
-    
-          
-          </td>
-
-          <td>
-            <form action="/action_page.php">&nbsp;&nbsp;&nbsp;
-
-
-            <label for="cars">Actress:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select name="cars" id="cars">
-                <option value="Select....">Select...</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-            <br>
-       
-            </form>
-
-
-            </td>
-            <td class="btns">&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="submit" style="height:40px; width:150px; margin-top: 20px;" value="Specialised Search"></td>
-            <td class="btns">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"  style="height:40px;width:150px; margin-top: 20px;" value="Watch Trailer"></td>
-        </tr>
-        <tr>
-          <td>
-            <form action="/action_page.php">
-            <label for="cars">User rating:</label>
-            <select name="cars" id="cars">
-                <option value="Select....">Select...</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
-        
-            </form>
-    
-          
-          </td>
-
-          <td>
-            <form action="/action_page.php">&nbsp;&nbsp;&nbsp;
-            <label for="cars">Language:&nbsp;&nbsp;&nbsp;</label>
-            <select name="cars" id="cars">
-                <option value="Select....">Select...</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-            </select>
            
-            </form>
+          </td>
+
+          <td class="tablepad">
+          
+            <label for="Director">Director:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select style="padding: 5px;width:150px" name="director" id="director" > 
+             <option value="Select Director">Select Director</option>
+			<c:forEach var="dir" items="${director}">
+	         	 <option value="${dir}">${dir}</option>
+	          	 </c:forEach>
+			</select> 
+            <br></br>
+          
+
 
 
             </td>
-            <td class="btns">&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="submit" style="height:40px; width:150px;" value="Rate this Movie"></td>
-            <td class="btns">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"  style="height:40px;width:150px;" value="View Comments"></td>
+        </tr>
+    
+        <tr>
+          <td>
+    
+            <label>Actor:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select style="padding: 5px;width:150px" name="actor" id="actor" > 
+             <option value="Select Actor">Select Actor</option>
+			<c:forEach var="act" items="${actor}">
+	         	 <option value="${act}">${act}</option>
+	          	 </c:forEach>
+			</select> 
+            <br></br>
+         
+      
+    
+          
+          </td>
+
+          <td class="tablepad">
+           
+
+
+            <label for="Actress">Actress:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <select style="padding: 5px;width:150px" name="actress" id="actress" > 
+             <option value="Select Actress">Select Actress</option>
+			<c:forEach var="actr" items="${actress}">
+	         	 <option value="${actr}">${actr}</option>
+	          	 </c:forEach>
+			</select> 
+            <br></br>
+       
+     
+
+
+            </td>
+            <td id="search">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" class="btn btn-danger" value="Specialised Search" /></td>
+        </tr>
+        <tr>
+          <td>
+    
+            <label for="User rating">User rating:</label>
+          <select style="padding: 5px;width:150px" name="rating" id="rating" > 
+           <option value="Select Rating">Select Rating</option>
+			<%for ( int i = 1; i <= 10; i++){ %>
+         <option><%= i %></option>
+      <%}%>
+			</select> 
+            
+        
+  
+    
+          
+          </td>
+
+          <td class="tablepad">
+        
+            <label for="language">Language:&nbsp;&nbsp;&nbsp;</label>
+            <select style="padding: 5px;width:150px" name="language" id="language" > 
+             <option value="Select Language">Select Language</option>
+			<c:forEach var="lang" items="${langs}">
+	         	 <option value="${lang.languageName}">${lang.languageName}</option>
+	          	 </c:forEach>
+			</select> 
+           
+           
+           
+
+
+            </td>
         </tr>
         
          
 
 
     </table>
-    
+      <input type="hidden" value="RegistedUserPage" name="regUser" />
+    </form>>
     
     </div>
 
 </body>
 </html>
+
+
+
+     

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 @Component
 @Entity
-@Table(name="movie")
+@Table(name="movies")
 public class Movies {
 @Id
 private int movie_id;
@@ -35,6 +35,27 @@ public Movies( String movieName, String tagline,String plot, byte[] poster, Date
 	this.release_date = release_date;
 	this.runtime = runtime;
 	this.trailer = trailer;
+}
+public Movies(int movie_id, String movieName, String tagline, String plot, byte[] poster, Date release_date, int runtime,  String trailer) {
+	super();
+	this.movie_id = movie_id;
+	this.movieName = movieName;
+	this.tagline = tagline;
+	this.plot = plot;
+	this.poster = poster;
+	this.runtime = runtime;
+	this.trailer = trailer;
+	this.release_date = release_date;
+}
+public Movies(int movie_id, String movieName, String tagline, String plot, Date release_date, int runtime,  String trailer) {
+	super();
+	this.movie_id = movie_id;
+	this.movieName = movieName;
+	this.tagline = tagline;
+	this.plot = plot;
+	this.runtime = runtime;
+	this.trailer = trailer;
+	this.release_date = release_date;
 }
 public Movies() {
 	super();

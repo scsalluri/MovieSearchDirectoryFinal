@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class User {
 	@Id
-private int id;
+    private int id;
 	@NotBlank(message="UserName cannot be Null")
+
 	private String username;
 	@NotBlank(message="Full Name cannot be Null")
 	private String fullname;

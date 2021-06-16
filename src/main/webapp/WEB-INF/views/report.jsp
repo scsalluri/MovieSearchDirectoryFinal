@@ -16,28 +16,45 @@
             padding-top: 20px;
         }
         body {
-            background-image:url('https://images8.alphacoders.com/100/thumb-1920-1003220.png');
-            background-size: cover;
+        font-family: 'Poppins', sans-serif;
+            background-image: url('/resources/images/background12.png');
+			background-size: 100%;
             
+        }
+        .t1 button{
+        	background-color:#bd0000;
+        	border: none;
+  			color: white;
+ 			padding: 5px;
+  			text-align: center;
+  			text-decoration: none;
+  			display: inline-block;
+  			font-size: 16px;
+        	width:200px;
+        	cursor: pointer;
+        	transition-duration: 0.3s;
+        }
+        .t1 button:hover{
+        background-color: #4CAF50;
+  color: white;
         }
     
         #box{
             
             
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             position:relative;
             z-index: 1;
             background: #000000;
-            max-width: 550px;
-            margin: 0 auto ;
-            padding: 45px;
+            max-width: 500px;
+            margin: auto ;
+            padding: 60px;
             opacity: 90%;
+            margin-top:100px;
             
             
             
-            position: fixed; /* or absolute */
-            top: 20%;
-            left: 32%;
+           
            
         }
           
@@ -77,43 +94,51 @@
           background-color: transparent;
           text-decoration: underline;
         }
+        .topright {
+    
+  position: absolute;
+  top: 58px;
+  left: 80px;
+  font-size: 25px;
+}
 
     </style>
     </head>
 <body>
+<a href="/registeredUser">
+  <img src="/resources/images/back.png" width="63" height="63">
+  </a>
+  </div>
 <div id="box">
 <h2 style="color: white"> Select Report</h2>
+<form action="showReports">
+<table class="t1" style="color: red">
+  <tr>
+      <td><button type="submit" name="reportType" value="Movie Name Wise">Movie Names Report</button></td>
+      <td><button type="submit" name="reportType" value="Genre Wise">Genre Wise Report</button></td>
+  </tr>
+  <tr>
+      <td><button type="submit" name="reportType" value="Release Year Wise">Release Year Wise Report</button></td>
+      <td><button type="submit" name="reportType" value="Actor/Actress Wise">Actor/Actress Report</button></td>
+  </tr>
+  <tr>
+     
+    <td><button type="submit" name="reportType" value="Company Wise">Company Wise Report</button></td>
+      <td><button type="submit" name="reportType" value="Producer Wise">Producer Wise Report</button></td>
+  </tr>
+  <tr>
+      <td><button type="submit" name="reportType" value="Director Wise">Director Wise Report</button></td>
+       <td><button type="submit" name="reportType" value="Language Wise">Language Wise Report</button></td>
+  </tr>
+  <tr>
+     
+      <td><button type="submit" name="reportType" value="Current Movies Report">Current Movies Report</button></td>
+  
+       <td><button type="submit" name="reportType" value="Upcoming Movies">Upcoming Movies Report</button></td>
+  </tr>
 
-<table style="color: red">
-  <tr>
-      <td ><a href="#">Movie Name Wise</a></td>
-      <td><a href="#">Country Wise</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Genre Wise</a></td>
-      <td><a href="#">Release Year Wise</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Actor Wise</a></td>
-      <td><a href="#">Best Movie Year Wise</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Producer Wise</a></td>
-      <td><a href="#">Director Wise</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Language Wise</a></td>
-      <td><a href="#">Company Wise</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Top Rated Movies</a></td>
-      <td><a href="#">User Rating Movies</a></td>
-  </tr>
-  <tr>
-      <td><a href="#">Upcoming Movies</a></td>
-      <td><a href="#">Currently Playing Movies</a></td>
-  </tr>
 </table>
+</form>
     </div>
 </body>
 </html>

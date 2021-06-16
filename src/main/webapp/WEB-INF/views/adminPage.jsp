@@ -9,7 +9,8 @@
 
 <style>
 body {
-  background-image: url('/resources/images/backdrop.png');
+ font-family: 'Poppins', sans-serif;
+  background-image: url('/resources/images/background1.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -37,12 +38,12 @@ body {
     position:relative;
     z-index: 1;
     background: #000000;
-    max-width: 700px;
-    margin: 0 auto ;
+    width:70% 
+    margin-left:1.5cm;
     padding: 45px;
     text-align: center;
     opacity: 90%;
-    top:150px;
+    top:200px;
 }
       a:link {
             color: red;
@@ -64,11 +65,10 @@ body {
           background-color: transparent;
           text-decoration: underline;
         }
-        h2{
-            text-align: left;
+        h1{
+            text-align: centre;
             
-            border-left: 5px solid red;
-            padding-left: 10px;
+   
             }
 </style>
 </head>
@@ -78,20 +78,24 @@ body {
 <div class="container">
     
   <div class="topright"  > 
-         <a href="#" style="color:white" >Admin Settings</a>
+  		
+
+
+
+         <h1 style="color:white" >Admin Settings</h1>
+         
   </div>
     
 </div>
 <div class="topnav">
-  <a href="#">
-  <img src="/resources/images/search.png" width="60" height="50">
+  <a href="logout">
+  <img src="/resources/images/logout.png" width="60" height="60">
   </a>
-  
 </div>
     <div id="adminchoice">
-    <h2 style="color: white"> Select Forms</h2>
+    <h1 style="color: white"> Select Forms</h1>
 
-    <table style="color: red">
+    <table align="center" style="color: red">
       <tr>
           <td><figure>
 
@@ -108,13 +112,27 @@ body {
    
           <td><figure>
 
-              <a href="#"><img src="/resources/images/cast.png"  width="100" height="100"></a>
+              <a href="castForm"><img src="/resources/images/cast.png"  width="100" height="100"></a>
               </figure></td>
               
            <td><figure>
-              <a href="#"><img src="/resources/images/edit_movie.png"  width="100" height="100"></a>
+              <a href="edit_form"><img src="/resources/images/edit_movie.png"  width="100" height="100"></a>
               </figure></td>
-
+              
+            <td><figure>
+              <a href="language"><img src="/resources/images/language.png"  width="100" height="100"></a>
+              </figure></td>
+              
+               <td><figure>
+              <a href="genre"><img src="/resources/images/genre.png"  width="100" height="100"></a>
+              </figure></td>
+              
+              <td><figure>
+              <a href="award"><img src="/resources/images/add award.png"  width="100" height="100"></a>
+              </figure></td>
+               <td><figure>
+              <a href="comp"><img src="/resources/images/add company.png"  width="100" height="100"></a>
+              </figure></td>
       </tr>
 
 

@@ -1,5 +1,7 @@
 package com.moviesearch.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -24,4 +26,9 @@ public Movies findByMovieName(String movieName)
 {
 	return movieRepository.findByMovieName(movieName);
 }
+
+public List<Movies> getAllMovies() {
+	return movieRepository.findAll();
+}
+
 }

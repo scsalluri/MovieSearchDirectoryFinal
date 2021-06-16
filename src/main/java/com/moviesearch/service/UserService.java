@@ -1,5 +1,7 @@
 package com.moviesearch.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -31,5 +33,8 @@ public User findByEmail(String email)
 {
  return userRepository.findByEmail(email);	
 }
-
+public List<User> getAllUsers()
+{
+ return  (List<User>) userRepository.findAll();	
+}
 }
