@@ -25,8 +25,8 @@ public Language findByLanguageName(String languageName)
 public List<Language> getAllLanguages() {
 	return languageRepository.findAll();
 }
-public void saveLanguage(Language lang) {
-	languageRepository.save(lang);
+public Language saveLanguage(Language lang) {
+	return languageRepository.save(lang);
 	
 }
 

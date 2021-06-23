@@ -17,9 +17,9 @@ public class MovieCompanyService {
 		this.movieCompanyRepository=movieCompanyRepository;
 	}
 
-	public void saveMovieCompany(MovieCompany movieCompany)
+	public MovieCompany saveMovieCompany(MovieCompany movieCompany)
 	{
-	movieCompanyRepository.save(movieCompany);
+	    return movieCompanyRepository.save(movieCompany);
 	}
 	public List<MovieCompany> getAllMovieCompany() {
 		return (List<MovieCompany>) movieCompanyRepository.findAll();

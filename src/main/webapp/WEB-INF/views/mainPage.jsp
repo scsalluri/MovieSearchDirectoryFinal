@@ -35,7 +35,7 @@ body {
     background: #000000;
     max-width: 960px;
     
-    top:70px;
+    top:80px;
     margin: 0 auto ;
     padding: 25px;
     text-align: center;
@@ -166,7 +166,7 @@ padding-left: 30px;
           <td>
             
             <label for="Genre">Genre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <select style="padding: 5px;width:150px" name="genre" id="genre" > 
+          <select style="padding: 5px;width:200px" name="genre" id="genre" > 
            <option value="Select Genre">Select Genre</option>
 			<c:forEach var="gens" items="${gen}">
 	         	  <option value="${gens.genreName}">${gens.genreName}</option>
@@ -180,7 +180,7 @@ padding-left: 30px;
           <td class="tablepad">
           
             <label for="Director">Director:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select style="padding: 5px;width:150px" name="director" id="director" > 
+            <select style="padding: 5px;width:200px" name="director" id="director" > 
              <option value="Select Director">Select Director</option>
 			<c:forEach var="dir" items="${director}">
 	         	 <option value="${dir}">${dir}</option>
@@ -198,7 +198,7 @@ padding-left: 30px;
           <td>
     
             <label>Actor:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select style="padding: 5px;width:150px" name="actor" id="actor" > 
+            <select style="padding: 5px;width:200px" name="actor" id="actor" > 
              <option value="Select Actor">Select Actor</option>
 			<c:forEach var="act" items="${actor}">
 	         	 <option value="${act}">${act}</option>
@@ -216,7 +216,7 @@ padding-left: 30px;
 
 
             <label for="Actress">Actress:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select style="padding: 5px;width:150px" name="actress" id="actress" > 
+            <select style="padding: 5px;width:200px" name="actress" id="actress" > 
              <option value="Select Actress">Select Actress</option>
 			<c:forEach var="actr" items="${actress}">
 	         	 <option value="${actr}">${actr}</option>
@@ -235,7 +235,7 @@ padding-left: 30px;
           <td>
     
             <label for="User rating">User rating:</label>
-          <select style="padding: 5px;width:150px" name="rating" id="rating" > 
+          <select style="padding: 5px;width:200px" name="rating" id="rating" > 
            <option value="Select Rating">Select Rating</option>
 			<%for ( int i = 1; i <= 10; i++){ %>
          <option><%= i %></option>
@@ -251,7 +251,7 @@ padding-left: 30px;
           <td class="tablepad">
         
             <label for="language">Language:&nbsp;&nbsp;&nbsp;</label>
-            <select style="padding: 5px;width:150px" name="language" id="language" > 
+            <select style="padding: 5px;width:200px" name="language" id="language" > 
              <option value="Select Language">Select Language</option>
 			<c:forEach var="lang" items="${langs}">
 	         	 <option value="${lang.languageName}">${lang.languageName}</option>

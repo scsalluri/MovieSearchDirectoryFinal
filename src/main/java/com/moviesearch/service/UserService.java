@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.moviesearch.model.User;
@@ -12,14 +13,16 @@ import com.moviesearch.repository.UserRepository;
 @Service
 @Transactional
 public class UserService {
+	
+    @Autowired	
 	private final UserRepository userRepository;
 	public UserService (UserRepository userRepository)
 	{
 		this.userRepository=userRepository;
 	}
-public void saveMyUser(User user)
+public User saveMyUser(User user)
 {
-userRepository.save(user);	
+return userRepository.save(user);	
 }
 public User findByUsernameAndPassword(String username,String password)
 {
@@ -27,7 +30,8 @@ public User findByUsernameAndPassword(String username,String password)
 }
 public User findByUsername(String username)
 {
- return userRepository.findByUsername(username);	
+  System.out.println(userRepository.findByUsername(username));	
+  return userRepository.findByUsername(username);	
 }
 public User findByEmail(String email)
 {

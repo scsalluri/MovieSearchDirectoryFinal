@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 import javax.validation.Valid;
@@ -21,10 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.moviesearch.model.Movies;
@@ -60,14 +64,13 @@ import com.moviesearch.service.UserPersonalizationService;
 import com.moviesearch.service.UserRatingService;
 import com.moviesearch.service.UserService;
 
-
 @Controller
 @MultipartConfig
 public class maincontroller {
 
 	@Value("${upoadDir}")
 	private String uploadFolder;
-	
+
 
 
 
@@ -112,111 +115,111 @@ public class maincontroller {
 	@Autowired
 	private User user;
 
-	
+
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/imagedata";
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session)
 	{
 		session.invalidate();
 		session= new HttpSession() {
-			
+
 			@Override
 			public void setMaxInactiveInterval(int interval) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void setAttribute(String name, Object value) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void removeValue(String name) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void removeAttribute(String name) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void putValue(String name, Object value) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public boolean isNew() {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public void invalidate() {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public String[] getValueNames() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public Object getValue(String name) {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public HttpSessionContext getSessionContext() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public ServletContext getServletContext() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public int getMaxInactiveInterval() {
 				// TODO Auto-generated method stub
 				return 0;
 			}
-			
+
 			@Override
 			public long getLastAccessedTime() {
 				// TODO Auto-generated method stub
 				return 0;
 			}
-			
+
 			@Override
 			public String getId() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public long getCreationTime() {
 				// TODO Auto-generated method stub
 				return 0;
 			}
-			
+
 			@Override
 			public Enumeration<String> getAttributeNames() {
 				// TODO Auto-generated method stub
 				return null;
 			}
-			
+
 			@Override
 			public Object getAttribute(String name) {
 				// TODO Auto-generated method stub
@@ -226,16 +229,25 @@ public class maincontroller {
 		session.setAttribute("loggedout", "loggedout");
 		return "logout";
 	}
+
+
+
+/*
 	@RequestMapping(value = "/login")
 	public String loginPage() {
 		return "loginPage";
+	}*/
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String handleGet(HttpServletResponse response) {
+	  return "testReact";
 	}
-
+	
+	
 	@RequestMapping(value = "/reports")
 	public String reportsForm(HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return "logout";
 		}
 		return "report";
@@ -244,11 +256,11 @@ public class maincontroller {
 	public ModelAndView registerUser(HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView modelAndView=new ModelAndView("registeredUser");
-		
+
 		return modelAndView;
 	}
 	@RequestMapping(value = "/register")
@@ -260,7 +272,7 @@ public class maincontroller {
 	public ModelAndView viewRatings(@RequestParam("mname") String mname,HttpSession session){
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView mav =new ModelAndView("userRating");
@@ -273,31 +285,13 @@ public class maincontroller {
 	public String registeredUserPage(HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return "logout";
 		}
 		return "registeredUser";
 
 	}
 
-	@PostMapping("/save-user")
-	public String registration(@ModelAttribute("user") @Valid User user, Errors error, BindingResult bindingResult,
-			RedirectAttributes rs) {
-
-		if (userService.findByUsername(user.getUsername()) != null) {
-			bindingResult.addError(new FieldError("user", "username", "Username already exists...."));
-		}
-		if (userService.findByEmail(user.getEmail()) != null) {
-			bindingResult.addError(new FieldError("user", "email", "Email already registered.."));
-		}
-		if (error.hasErrors()) {
-			return "signup";
-
-		}
-		rs.addFlashAttribute("message", "Sucessfully Registration");
-		userService.saveMyUser(user);
-		return "loginPage";
-	}
 	@RequestMapping("/")
 	public ModelAndView home(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("mainPage");
@@ -366,8 +360,8 @@ public class maincontroller {
 			@RequestParam("director") String director,@RequestParam("actor") String actor,@RequestParam("actress") String actress,
 			@RequestParam("rating") String rating,@RequestParam("regUser") String user ,HttpSession session)
 	{
-		
-		
+
+
 		Display d=null;
 		List<Movies>slist=new ArrayList<Movies>();
 		ModelAndView modelAndView =null;
@@ -379,7 +373,7 @@ public class maincontroller {
 		{
 			if(session.getAttribute("username")==null)
 			{
-			
+
 				return  new ModelAndView("logout");
 			}
 			modelAndView = new ModelAndView("showresultregistereduser");
@@ -405,7 +399,7 @@ public class maincontroller {
 		}
 		List <String> imgList=new ArrayList<String>();
 		for(Movies m:slist){
-				 
+
 			try {
 				String picname=m.getmovieName().replaceAll("\\s", "");
 				Files.write(Paths.get("src/main/webapp/resources/retrieve-dir/" + picname+ "." + "png"), m.getPoster());
@@ -417,10 +411,10 @@ public class maincontroller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		 d= new Display(slist,imgList);
+			d= new Display(slist,imgList);
 			modelAndView.addObject("moviesList",d );
 			System.out.print("test done");
-			
+
 		}
 		if(d==null)
 		{
@@ -428,7 +422,7 @@ public class maincontroller {
 			modelAndView.addObject("msg","Sorry No Movies Found Of These Criteria!!");
 			if(user.equalsIgnoreCase("mainPage"))
 			{
-			modelAndView.addObject("back","/");
+				modelAndView.addObject("back","/");
 			}
 			else
 			{
@@ -439,8 +433,8 @@ public class maincontroller {
 		return modelAndView;
 	}
 
-		
-	
+
+
 	//working
 
 	@RequestMapping("/viewComments")
@@ -448,7 +442,7 @@ public class maincontroller {
 		ModelAndView mav =new ModelAndView("commentspage");
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		mav.addObject("moviename",mname);
@@ -495,7 +489,7 @@ public class maincontroller {
 		mav.addObject("Rating",rating);
 		mav.addObject("Comment",comments);
 		mav.addObject("user",users);
-		
+
 		if(users.isEmpty())
 		{
 			ModelAndView modelAndView= new ModelAndView("error");
@@ -503,13 +497,13 @@ public class maincontroller {
 			modelAndView.addObject("back", "registeredUser");
 			return modelAndView;
 		}
-		
-		
-		
+
+
+
 		return mav;
 	}
 
-	
+
 
 
 	// ADDED TO VIEW THE RATINGS PAGE
@@ -518,7 +512,7 @@ public class maincontroller {
 			,HttpSession session){
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView mav =new ModelAndView("error");
@@ -558,7 +552,7 @@ public class maincontroller {
 	{
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView mav =new ModelAndView("movie_details_registered_user");
@@ -676,13 +670,13 @@ public class maincontroller {
 	}
 
 	//edit form
-	
+
 
 	@RequestMapping(value = "/personalized")
 	public ModelAndView PersonalizedPage(HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView modelAndView= new ModelAndView("user_personalisation");
@@ -727,101 +721,12 @@ public class maincontroller {
 
 
 
-	@RequestMapping("/login-user")
-	public ModelAndView loginuser(@Valid @ModelAttribute User user, Errors error, BindingResult result,
-			HttpServletRequest request,HttpSession session) {
-		ModelAndView modelAndView=null;
-		
-		if(session.getAttribute("loggedout").toString().equalsIgnoreCase("loggedout"))
-		{
-				return  new ModelAndView("logout");
-			
-		}
-		
-		if (userService.findByUsernameAndPassword(user.getUsername(), user.getPassword()) != null) {
 
-			
-			User users=userService.findByUsername(user.getUsername());
-			
-			if (users.getRole()!=0)
-			{
-				session.setAttribute("username",user.getUsername());
-				session.setAttribute("loggedout","loggedin");
-				modelAndView = new ModelAndView("adminPage");
-			}
-			else
-			{
-				session.setAttribute("username",user.getUsername());
-				session.setAttribute("loggedout","loggedin");
-				modelAndView = new ModelAndView("registeredUser");
-				List<Language> langs= languageService.getAllLanguages();
-				modelAndView.addObject("langs",langs);
-				List<Genre> gen= genreService.getAllGenres();
-				modelAndView.addObject("gen",gen);
-				List<MovieCategoryPerson> MCP = movieCategoryPersonService.findall();
-				List<String>pnames=new ArrayList<String>();
-				for(MovieCategoryPerson mcp : MCP)
-				{
-					int cid= mcp.getCategoryId();
-					Category cat = categoryService.findByCategoryId(cid);
-					if(cat.getCategoryName().equalsIgnoreCase("Director"))
-					{
-						int pid=mcp.getPersonId();
-						Person per= personService.findByPersonId(pid);
-						String personName=per.getPersonName();
-						pnames.add(personName);
-					}
-
-				}
-				modelAndView.addObject("director",pnames);	
-
-				List<MovieCategoryPerson> MCP2 = movieCategoryPersonService.findall();
-				List<String>pnames2=new ArrayList<String>();
-				for(MovieCategoryPerson mcp : MCP2)
-				{
-					int cid= mcp.getCategoryId();
-					Category cat = categoryService.findByCategoryId(cid);
-					if(cat.getCategoryName().equalsIgnoreCase("Actor"))
-					{
-						int pid=mcp.getPersonId();
-						Person per= personService.findByPersonId(pid);
-						String personName=per.getPersonName();
-						pnames2.add(personName);
-					}
-
-				}
-				modelAndView.addObject("actor",pnames2);	
-				List<MovieCategoryPerson> MCP3 = movieCategoryPersonService.findall();
-				List<String>pnames3=new ArrayList<String>();
-				for(MovieCategoryPerson mcp : MCP3)
-				{
-					int cid= mcp.getCategoryId();
-					Category cat = categoryService.findByCategoryId(cid);
-					if(cat.getCategoryName().equalsIgnoreCase("Actress"))
-					{
-						int pid=mcp.getPersonId();
-						Person per= personService.findByPersonId(pid);
-						String personName=per.getPersonName();
-						pnames3.add(personName);
-					}
-
-				}
-				modelAndView.addObject("actress",pnames3);	
-
-			}
-		} else {
-			request.setAttribute("error", "Invaid Username or Password");
-		
-			modelAndView = new ModelAndView( "loginPage");
-			modelAndView.addObject("invalid","Invalid Username Or Password!!");
-		}
-		return modelAndView;
-	}
 	@RequestMapping("/registerdUsernameSearch")
 	public ModelAndView nameSearchRegisterUser(@RequestParam("movname") String movieName,Model model,HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		List<Movies> mlist=movieService.getAllMovies();
@@ -831,6 +736,7 @@ public class maincontroller {
 		int count=0;
 		for(Movies m:mlist)
 		{
+			System.out.println(m.getmovieName());
 			String mname=m.getmovieName().toLowerCase();
 
 			if(mname.contains(movieName.toLowerCase()))
@@ -1199,28 +1105,17 @@ public class maincontroller {
 	@RequestMapping("/reportChange")
 	public ModelAndView reportChange(@RequestParam("category") String category,HttpSession session)
 	{
+		int flag=0;
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		ModelAndView mav= new ModelAndView("reportdetails");
-		List<String> heading=new ArrayList<String>();
-		mav.addObject("h2","");
-		heading.add("Movie Name");
-		heading.add("Tagline");
-		heading.add("Release Date");
-		heading.add("Runtime");
-		heading.add("User Rating");
-		heading.add("Genre");
-		heading.add("Cast");
-		heading.add("Producer");
-		heading.add("Director & Writer");
-		heading.add("Company");
-		mav.addObject("heading",heading);
-		mav.addObject("type",(String)session.getAttribute("reportType"));
+		
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Movie Name Wise"))
 		{
+			flag=1;
 			Movies movie= movieService.findByMovieName(category);
 			int mid=movie.getMovie_id();
 			List<AllMovieDetailsPojo> amdp= new ArrayList<AllMovieDetailsPojo>();
@@ -1230,7 +1125,7 @@ public class maincontroller {
 
 		//DIRECTOR WISE
 		if (session.getAttribute("reportType").toString().equalsIgnoreCase("Director Wise")) {
-
+			flag=1;
 			List<MovieCategoryPerson> MCP = movieCategoryPersonService.findall();
 			Person p = personService.findBypersonName(category);
 			int pid = p.getPersonId();
@@ -1242,8 +1137,20 @@ public class maincontroller {
 			}
 			List<AllMovieDetailsPojo> returnLists = new ArrayList<AllMovieDetailsPojo>();
 			for (int mids : allmovies) {
-				returnLists.add(reportMethod(mids));
+				int q=0;
+				for(AllMovieDetailsPojo amdp:returnLists)
+				{
 
+					if(mids==movieService.findByMovieName(amdp.getMovieName()).getMovie_id())
+					{
+						q=1;
+					}
+				}
+				if(q==0)
+				{
+					returnLists.add(reportMethod(mids));
+				}
+				
 			}
 			mav.addObject("moviedetails", returnLists);
 		}
@@ -1251,7 +1158,7 @@ public class maincontroller {
 
 		//ACTOR/ACTRESS WISE
 		if (session.getAttribute("reportType").toString().equalsIgnoreCase("Actor/Actress Wise")) {
-
+			flag=1;
 			List<MovieCategoryPerson> MCP = movieCategoryPersonService.findall();
 			Person p = personService.findBypersonName(category);
 			int pid = p.getPersonId();
@@ -1263,7 +1170,20 @@ public class maincontroller {
 			}
 			List<AllMovieDetailsPojo> returnLists = new ArrayList<AllMovieDetailsPojo>();
 			for (int mids : allmovies) {
-				returnLists.add(reportMethod(mids));
+				int q=0;
+				for(AllMovieDetailsPojo amdp:returnLists)
+				{
+
+					if(mids==movieService.findByMovieName(amdp.getMovieName()).getMovie_id())
+					{
+						q=1;
+					}
+				}
+				if(q==0)
+				{
+					returnLists.add(reportMethod(mids));
+				}
+				
 
 			}
 			mav.addObject("moviedetails", returnLists);
@@ -1297,9 +1217,10 @@ public class maincontroller {
 				returnLists.add(reportMethod(mids));
 
 			}
-
+			if(returnLists.size()>0)
+				flag=1;
 			mav.addObject("moviedetails",returnLists);
-
+			
 
 
 
@@ -1309,6 +1230,7 @@ public class maincontroller {
 
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Producer Wise"))
 		{
+			flag=1;
 			List<MovieCategoryPerson> MCP = movieCategoryPersonService.findall();
 			Person p = personService.findBypersonName(category);
 			int pid = p.getPersonId();
@@ -1320,8 +1242,20 @@ public class maincontroller {
 			}
 			List<AllMovieDetailsPojo> returnLists = new ArrayList<AllMovieDetailsPojo>();
 			for (int mids : allmovies) {
-				returnLists.add(reportMethod(mids));
+				int q=0;
+				for(AllMovieDetailsPojo amdp:returnLists)
+				{
 
+					if(mids==movieService.findByMovieName(amdp.getMovieName()).getMovie_id())
+					{
+						q=1;
+					}
+				}
+				if(q==0)
+				{
+					returnLists.add(reportMethod(mids));
+				}
+				
 			}
 			mav.addObject("moviedetails", returnLists);
 		}
@@ -1347,6 +1281,8 @@ public class maincontroller {
 			{
 				returnlists.add(reportMethod(mids));
 			}
+			if(returnlists.size()>0)
+				flag=1;
 
 			mav.addObject("moviedetails",returnlists);
 
@@ -1364,6 +1300,7 @@ public class maincontroller {
 					returnlists.add(reportMethod(movie.getMovie_id()));
 				}
 			}
+			flag=1;
 			mav.addObject("moviedetails",returnlists);
 
 
@@ -1385,13 +1322,14 @@ public class maincontroller {
 			}
 
 			List<AllMovieDetailsPojo>returnLists=new ArrayList<AllMovieDetailsPojo>();
-		
+
 			for(int mids:allmovies)
 			{
 				returnLists.add(reportMethod(mids));
 
 			}
-
+			if(returnLists.size()>0)
+				flag=1;
 			mav.addObject("moviedetails",returnLists);
 
 
@@ -1402,10 +1340,12 @@ public class maincontroller {
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Current Movies Report"))
 		{
 			List<AllMovieDetailsPojo>returnLists=new ArrayList<AllMovieDetailsPojo>();
-		
-				Movies mo= movieService.findByMovieName(category);
-				returnLists.add(reportMethod(mo.getMovie_id()));
-				mav.addObject("moviedetails",returnLists);
+
+			Movies mo= movieService.findByMovieName(category);
+			returnLists.add(reportMethod(mo.getMovie_id()));
+			if(returnLists.size()>0)
+				flag=1;
+			mav.addObject("moviedetails",returnLists);
 
 		}
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Upcoming Movies"))
@@ -1413,27 +1353,52 @@ public class maincontroller {
 			List<AllMovieDetailsPojo>returnLists=new ArrayList<AllMovieDetailsPojo>();
 			Movies mo= movieService.findByMovieName(category);
 			returnLists.add(reportMethod(mo.getMovie_id()));
+			if(returnLists.size()>0)
+				flag=1;
 			mav.addObject("moviedetails",returnLists);
-		
-			
-			
+
+
+
 		}
+		if(flag==1)
+		{
+		List<String> heading=new ArrayList<String>();
+		mav.addObject("h2","");
+		heading.add("Movie Name");
+		heading.add("Tagline");
+		heading.add("Release Date");
+		heading.add("Runtime");
+		heading.add("User Rating");
+		heading.add("Genre");
+		heading.add("Cast");
+		heading.add("Producer");
+		heading.add("Director & Writer");
+		heading.add("Company");
+		mav.addObject("heading",heading);
+		}
+		else
+		{
+			mav.addObject("h2","Sorry No Movies Found!!");
+		}
+		
+		mav.addObject("type",(String)session.getAttribute("reportType"));
+		
 		return mav;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
-	
+
 	@RequestMapping("/showReports")
 	public ModelAndView showReports( @RequestParam("reportType") String reportType , HttpSession session) {
 		System.out.println("reportTpe:"+reportType);
 
 		if(session.getAttribute("username")==null)
 		{
-		
+
 			return  new ModelAndView("logout");
 		}
 		session.setAttribute("reportType", reportType);
-		
+
 		ModelAndView mav= new ModelAndView("reportdetails");
 		mav.addObject("h2","Please Select Category To View Reports");
 		mav.addObject("type",reportType);
@@ -1491,6 +1456,7 @@ public class maincontroller {
 					int pid=mcp.getPersonId();
 					Person per= personService.findByPersonId(pid);
 					String personName=per.getPersonName();
+					if(!pnames.contains(personName))
 					pnames.add(personName);
 				}
 
@@ -1512,6 +1478,7 @@ public class maincontroller {
 					int pid=mcp.getPersonId();
 					Person per= personService.findByPersonId(pid);
 					String personName=per.getPersonName();
+					if(!pnames.contains(personName))
 					pnames.add(personName);
 				}
 
@@ -1534,7 +1501,10 @@ public class maincontroller {
 					int pid=mcp.getPersonId();
 					Person per= personService.findByPersonId(pid);
 					String personName=per.getPersonName();
+					if(!pnames.contains(personName))
+					{
 					pnames.add(personName);
+					}
 				}
 
 			}
@@ -1553,7 +1523,7 @@ public class maincontroller {
 				Date1=Date1.substring(0,4);
 				if(!dates.contains(Date1))
 				{
-				dates.add(Date1);
+					dates.add(Date1);
 				}
 			}
 			session.setAttribute("category","Release Year");
@@ -1578,54 +1548,54 @@ public class maincontroller {
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Current Movies Report"))
 		{
 			List<Movies>movies=	movieService.getAllMovies();
-	
+
 			java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
 			Calendar c = Calendar.getInstance();
-	        c.setTime(sqlDate);
-	        c.add(Calendar.DATE, 30);
-	        c.setTime(sqlDate);
-	        c.add(Calendar.DATE,-30);
-	        java.sql.Date pastDate= new java.sql.Date (c.getTimeInMillis());
-	 
-	    	List<String>dates=new ArrayList<String>();
-	    	for(Movies m: movies)
+			c.setTime(sqlDate);
+			c.add(Calendar.DATE, 30);
+			c.setTime(sqlDate);
+			c.add(Calendar.DATE,-30);
+			java.sql.Date pastDate= new java.sql.Date (c.getTimeInMillis());
+
+			List<String>dates=new ArrayList<String>();
+			for(Movies m: movies)
 			{
 				java.sql.Date dt=m.getRelease_date();
 				if(dt.after(pastDate) && ((dt.before(sqlDate))))
 				{
 					dates.add(m.getmovieName());
 				}
-				
+
 			}
-	    	session.setAttribute("category","Current Movies Report");
+			session.setAttribute("category","Current Movies Report");
 			Collections.sort(dates);
 			session.setAttribute("item",dates);
 
-			
+
 		}
 
-		
+
 		if(session.getAttribute("reportType").toString().equalsIgnoreCase("Upcoming Movies"))
 		{
 			List<Movies>movies=	movieService.getAllMovies();
 			java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());       
-	    	List<String>dates=new ArrayList<String>();
-	    	for(Movies m: movies)
+			List<String>dates=new ArrayList<String>();
+			for(Movies m: movies)
 			{
 				java.sql.Date dt=m.getRelease_date();
 				if(dt.after(sqlDate))
 				{
 					dates.add(m.getmovieName());
 				}
-				
+
 			}
-	    	session.setAttribute("category","Upcoming Movies");
+			session.setAttribute("category","Upcoming Movies");
 			Collections.sort(dates);
 			session.setAttribute("item",dates);
 
-			
+
 		}
-		
+
 		return mav;
 	}
 

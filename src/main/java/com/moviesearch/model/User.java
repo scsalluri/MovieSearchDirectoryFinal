@@ -16,15 +16,10 @@ import org.springframework.stereotype.Component;
 public class User {
 	@Id
     private int id;
-	@NotBlank(message="UserName cannot be Null")
 
 	private String username;
-	@NotBlank(message="Full Name cannot be Null")
 	private String fullname;
-	@NotBlank(message="email cannot be Null")
 	private String email;
-	@NotBlank(message="password cannot be Null")
-	@Size(min = 8, max = 20, message= "Password Should Be In Between 8 and 20 Characters")
 	private String password;
 	private int role;
 	

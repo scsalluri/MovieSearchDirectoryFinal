@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
     body{
-                background-image: url('/resources/images/backdrop.png');
+                background-image: url('/resources/images/movieDetails.png');
                 background-size: cover;
                 background-attachment: fixed;
     }
@@ -21,7 +21,7 @@
     /* Create three equal columns that floats next to each other */
     .column {
     float: left;
-    width: 20%;
+    width: 27%;
     padding: 10px;
     height: 500px; /* Should be removed. Only for demonstration */
     
@@ -38,7 +38,7 @@
     }
     div.row {
         position: relative;
-        left: 320px;
+        left: 160px;
         top: 100px;
   
     }
@@ -94,11 +94,11 @@
 <div class="row" >
   <div class="column" style="background-color:black ; opacity: 80%;" >
     <h2 style="color: white;">${mdetails.movieName} </h2>
-    <img src="${img}" height="150" width="150" />
+    <img src="${img}" height="200" width="150" />
    
     <p style="color: white;">User Rating: ${mdetails.user_rating} <span style="font-size:300%;color:yellow;">&starf;</span></p><br><br><br>
     
-    <a href="${mdetails.trailer}"><button value="trailer">Watch Trailer</button></a>
+    <a href="${mdetails.trailer}" target="_blank"><button value="trailer">Watch Trailer</button></a>
     
     
   </div>
@@ -109,7 +109,7 @@
     <p style="color: white;margin-left: -1.3cm;">Director & Writer: ${mdetails.director}</p>
     <p style="color: white;margin-left: -1.3cm;">Producer:${mdetails.producer}</p>
     <p style="color: white;margin-left: -1.3cm;">Company: ${mdetails.company}</p>
-    <p style="color: white;margin-left: -1.3cm;">Release Date${mdetails.release_date}</p>
+    <p style="color: white;margin-left: -1.3cm;">Release Date: ${mdetails.release_date}</p>
     <p style="color: white;margin-left: -1.3cm;">Runtime:${mdetails.runtime}</p>
     <p style="color: white;margin-left: -1.3cm;">Language:${mdetails.language}</p>
     <p style="color: white;margin-left: -1.3cm;">Genre:${mdetails.genre}</p>
@@ -125,9 +125,9 @@
     
     <c:forEach var="img" items="${imgList}">
       
-        <div style="width:120px; display: inline-block">                    
-            <img src="${img}" width="120px" height="180px" border="5"/>
-            <div style="color:white" >${nameList[count]}</div>
+        <div style="width:170px; display: inline-block">                    
+            <img src="${img}" width="170px" height="220px" border="5"/>
+            <div style="color:white;width:200px;margin-left:5px">${nameList[count]}</div>
         </div>&nbsp;&nbsp;
         <c:set var="count" value="${count + 1}" scope="page"></c:set>
         </c:forEach>

@@ -59,9 +59,11 @@
 <body>
  <div class="topright"  > 
   		
-  <a href="registeredUserPage">
-  <img src="/resources/images/back.png" width="63" height="63">
-  </a>
+ <form action="movieDetailsRegisteredUser"	>	
+   <input type="hidden" name="movieName" value="${mname}" /> 
+  <button type="submit" style="background-color:black; border: 0; "> <img src="/resources/images/back.png" width="63" height="63"></button>
+
+  </form>>
   </div>
 
 <form action="save_Rating">

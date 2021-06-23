@@ -24,9 +24,9 @@ public Genre findByGenreName(String GenreName)
 public List <Genre> getAllGenres() {
 	return (List<Genre>) genreRepository.findAll();
 }
-public void saveGenre(Genre gen) {
-	genreRepository.save(gen);
-	// TODO Auto-generated method stub
+public Genre saveGenre(Genre gen) {
+	return genreRepository.save(gen);
+	
 	
 }
 }

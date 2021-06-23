@@ -20,10 +20,12 @@ public class MovieCategoryPersonService {
 		this.movieCategoryPersonRepository=movieCategoryPersonRepository;
 	}
 
-	public void saveMovieCategoryPersonService(MovieCategoryPerson mcp)
+	public MovieCategoryPerson saveMovieCategoryPersonService(MovieCategoryPerson mcp)
 	{
-	movieCategoryPersonRepository.save(mcp);
+	  return movieCategoryPersonRepository.save(mcp);
 	}
+	
+	
 	public List<MovieCategoryPerson> findall()
 	{
 	 return	(List<MovieCategoryPerson>) movieCategoryPersonRepository.findAll();

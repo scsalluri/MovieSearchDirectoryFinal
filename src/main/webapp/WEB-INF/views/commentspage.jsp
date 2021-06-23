@@ -92,10 +92,11 @@
 </head>
 <body>
 <div class="topright"  > 
-  		
-  <a href="registeredUser">
-  <img src="/resources/images/back.png" width="63" height="63">
-  </a>
+  <form action="movieDetailsRegisteredUser"	>	
+   <input type="hidden" name="movieName" value="${moviename}" /> 
+  <button type="submit" style="background-color:black; border: 0; "> <img src="/resources/images/back.png" width="63" height="63"></button>
+
+  </form>>
   </div>
 
 <h1 style="color:white">COMMENTS SECTION</h1>
@@ -105,10 +106,9 @@
     	
 
         <table style="margin-top: 50px; color: #ffffff" class="table-2">
-        <caption style="color: #fff; font-size: 30px; background-color: #bd0000"><strong>${moviename}</strong></caption>
-            
-            
+        <caption style="color: #fff; font-size: 30px; background-color: #bd0000" ><strong>${moviename}</strong></caption>
            
+        
          
 	         	 <tr class="trow" style="color: #bd0000;text-align:center;">
                 <td>Serial no.</td>

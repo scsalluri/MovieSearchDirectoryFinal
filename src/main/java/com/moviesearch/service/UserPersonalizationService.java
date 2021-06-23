@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.moviesearch.model.User;
 import com.moviesearch.model.UserPersonalization;
 
 import com.moviesearch.repository.UserPersonalizationRepository;
@@ -22,10 +23,13 @@ public class UserPersonalizationService {
 public List<UserPersonalization> getAlluserPersonalizations() {
 	return (List<UserPersonalization>) userPersonalizationRepository.findAll();
 }
-public void saveuserPersonalization(UserPersonalization userpersaonalization) {
-	userPersonalizationRepository.save(userpersaonalization);
+public UserPersonalization saveuserPersonalization(UserPersonalization userpersaonalization) {
+	return userPersonalizationRepository.save(userpersaonalization);
 	
 }
-
+public UserPersonalization getByGenreId(int GenreId)
+{
+   return userPersonalizationRepository.findByGenreId(GenreId);	
+}
 
 }

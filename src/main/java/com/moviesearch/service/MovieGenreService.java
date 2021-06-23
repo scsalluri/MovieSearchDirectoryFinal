@@ -20,9 +20,9 @@ public class MovieGenreService {
 		this.movieGenreRepository=movieGenreRepository;
 	}
 
-	public void saveMovieGenre(MovieGenre movieGenre)
+	public MovieGenre saveMovieGenre(MovieGenre movieGenre)
 	{
-	movieGenreRepository.save(movieGenre);
+	   return movieGenreRepository.save(movieGenre);
 	}
 
 	public List<MovieGenre> getAllMovieGenres() {
@@ -30,7 +30,7 @@ public class MovieGenreService {
 	}
 
 	public void removeMovieGenre(MovieGenre values) {
-		// TODO Auto-generated method stub
+		
 		movieGenreRepository.delete(values);
 		
 	}

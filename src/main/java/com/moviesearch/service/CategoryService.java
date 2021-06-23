@@ -4,6 +4,8 @@ package com.moviesearch.service;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import com.moviesearch.model.Award;
 import com.moviesearch.model.Category;
 import com.moviesearch.repository.CategoryRepository;
 
@@ -29,6 +31,10 @@ public Category findByCategoryId(int CategoryId)
 
 public List <Category> getAllCategorys() {
 	return (List<Category>) categoryRepository.findAll();
+}
+public Category saveCategory(Category category) {
+	return categoryRepository.save(category);
+	
 }
 
 

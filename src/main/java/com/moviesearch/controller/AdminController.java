@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -95,7 +97,7 @@ public class AdminController {
 	private MovieCategoryPersonService movieCategoryPersonService;
 
 
-	@RequestMapping(value = "/adminPage")
+	@RequestMapping(value = "/adminPage" , method = RequestMethod.GET)
 	public String adminPage(HttpSession session) {
 		if(session.getAttribute("username")==null)
 		{
@@ -180,16 +182,22 @@ public class AdminController {
 		return "cast_form";
 
 	}
-	@RequestMapping("/language")
-	public String language(HttpSession session) {
-		if(session.getAttribute("username")==null)
+	@RequestMapping(value = "/language", method = RequestMethod.GET)
+	public String language(HttpServletResponse response) {
+		/*if(session.getAttribute("username")==null)
 		{
 		
 			return "logout";
-		}
+		}*/
 		return "language";
 
 	}
+	@RequestMapping("/save")
+	public String signupReload()
+	{
+		return "testReact";
+	}
+	
 	@RequestMapping("/genre")
 	public String genre(HttpSession session) {
 		
@@ -212,13 +220,13 @@ public class AdminController {
 		return "company";
 	}
 
-	@RequestMapping(value = "/award")
-	public String award(HttpSession session) {
-		if(session.getAttribute("username")==null)
+	@RequestMapping(value = "/award", method = RequestMethod.GET)
+	public String award(HttpSession session,HttpServletResponse response) {
+	/*	if(session.getAttribute("username")==null)
 		{
 		
 			return "logout";
-		}
+		}*/
 		return "award";
 	}
 
@@ -610,110 +618,9 @@ public class AdminController {
 
 		return mav;
 	}
-	@RequestMapping("/save_language")
-	public ModelAndView saveLanguage(@RequestParam("language") String lang,HttpSession session)
-	{
-		ModelAndView model= new ModelAndView("error");
-		
-		if(session.getAttribute("username")==null)
-		{
-		
-			return  new ModelAndView("logout");
-		}
-		
-		if(languageService.findByLanguageName(lang)!=null)
-		{
-			model.addObject("msg","Language Already Exists!");
-			model.addObject("back","adminPage");
-		}
-		else
-		{
-			int s= languageService.getAllLanguages().size()+1;
-			Language langu= new Language(s,lang);
-			languageService.saveLanguage(langu);
-			model.addObject("msg","Language Saved Successfully!");
-			model.addObject("back","adminPage");
-		}
-		return model;
-	}
 
+	
 
-	@RequestMapping("/save_Company")
-	public ModelAndView saveCompany(@RequestParam("company") String company,HttpSession session)
-	{
-		ModelAndView model= new ModelAndView("error");
-		if(session.getAttribute("username")==null)
-		{
-		
-			return  new ModelAndView("logout");
-		}
-		if(companyService.findByCompanyName(company)!=null)
-		{
-			model.addObject("msg","Company Already Exists!");
-			model.addObject("back","adminPage");
-		}
-		else
-		{
-			int s= companyService.getAllCompanys().size()+1;
-			Company comp= new Company(s,company);
-			companyService.saveCompany(comp);
-			model.addObject("msg","Company Saved Successfully!");
-			model.addObject("back","adminPage");
-		}
-		return model;
-	}
-
-
-	@RequestMapping("/save_award")
-	public ModelAndView saveAward(@RequestParam("award") String award,HttpSession session)
-	{
-		ModelAndView model= new ModelAndView("error");
-		if(session.getAttribute("username")==null)
-		{
-		
-			return  new ModelAndView("logout");
-		}
-		if(awardService.findByAwardName(award)!=null)
-		{
-			model.addObject("msg","Award Already Exists!");
-			model.addObject("back","adminPage");
-		}
-		else
-		{
-			int s= awardService.getAllAwards().size()+1;
-			Award awd= new Award(s,award);
-			awardService.saveAward(awd);
-			model.addObject("msg","Award Saved Successfully!");
-			model.addObject("back","adminPage");
-		}
-		return model;
-	}
-
-
-	@RequestMapping("/save_Genre")
-	public ModelAndView saveGenre(@RequestParam("genre") String gen,HttpSession session)
-	{
-		ModelAndView model= new ModelAndView("error");
-		if(session.getAttribute("username")==null)
-		{
-		
-			return  new ModelAndView("logout");
-		}
-		if(genreService.findByGenreName(gen)!=null)
-		{
-			model.addObject("msg","Genre Already Exists!");
-			model.addObject("back","adminPage");
-		}
-		else
-		{
-			int s= genreService.getAllGenres().size()+1;
-			Genre g= new Genre(s,gen);
-			genreService.saveGenre(g);
-			model.addObject("msg","Genre Saved Successfully!");
-			model.addObject("back","adminPage");
-		}
-		return model;
-	}
 
 	@PostMapping("/save_edit")
 	public ModelAndView saveEditform(@RequestParam("movie_name") String movie_name,
@@ -968,10 +875,13 @@ public class AdminController {
 				String cast[]= castnames.split(",");
 				String categories[]=category.split(",");
 				mcp4= movieCategoryPersonService.findall();
-				int sno=0;
+				int max=0;
 				for(MovieCategoryPerson values: mcp4)
 				{
-					sno=values.getSerialNo();
+					if(values.getSerialNo()>max)
+					{
+					max=values.getSerialNo();
+					}
 				}
 				for(int i=0;i<cast.length;i++)
 				{
@@ -979,9 +889,9 @@ public class AdminController {
 					Person person=personService.findBypersonName(nm);
 					String cat=categories[i];
 					Category cate=categoryService.findByCategoryName(cat);
-					sno=sno+1;
-					movieCategoryPersonService.saveMovieCategoryPersonService(new MovieCategoryPerson(sno,mid,cate.getCategoryId(),person.getPersonId()));
-					System.out.print("mcs saved"+sno);
+					max=max+1;
+					movieCategoryPersonService.saveMovieCategoryPersonService(new MovieCategoryPerson(max,mid,cate.getCategoryId(),person.getPersonId()));
+					System.out.print("mcs saved"+max);
 					//end test
 					mav.addObject("msg","Movie Edited Sucessfully");
 					mav.addObject("back","adminPage");

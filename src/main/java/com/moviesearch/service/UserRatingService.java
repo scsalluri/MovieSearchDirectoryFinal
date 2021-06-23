@@ -18,12 +18,21 @@ public class UserRatingService {
 		this.userRatingRepository=userRatingRepository;
 	}
 
-public List <UserRating> getAllUserRatings() {
-	return (List<UserRating>) userRatingRepository.findAll();
-}
-public void saveUserRating(UserRating gen) {
-	userRatingRepository.save(gen);
+    public List <UserRating> getAllUserRatings() 
+    {
+	  return (List<UserRating>) userRatingRepository.findAll();
+    }
+    public UserRating saveUserRating(UserRating gen) 
+    {
+	 return userRatingRepository.save(gen);
 	// TODO Auto-generated method stub
 	
-}
+    }
+    
+    /*public UserRating getByMovieId(int movieId)
+    {
+    	return userRatingRepository.findbyMovieId(movieId);
+    }*/
+    
+    
 }

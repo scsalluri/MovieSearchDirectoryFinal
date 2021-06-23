@@ -24,9 +24,9 @@ public Company findByCompanyName(String companyName)
 public List <Company> getAllCompanys() {
 	return (List<Company>) companyRepository.findAll();
 }
-public void saveCompany(Company c)
+public Company saveCompany(Company c)
 {
-	companyRepository.save(c);
-	}
+	return companyRepository.save(c);
+}
 
 }

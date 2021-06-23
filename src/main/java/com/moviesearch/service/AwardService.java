@@ -25,8 +25,8 @@ public Award findByAwardName(String AwardName)
 public List<Award> getAllAwards() {
 	return awardRepository.findAll();
 }
-public void saveAward(Award lang) {
-	awardRepository.save(lang);
+public Award saveAward(Award lang) {
+	return awardRepository.save(lang);
 	
 }
 public Award findByAwardId(int aid) {

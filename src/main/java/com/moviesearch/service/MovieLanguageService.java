@@ -19,9 +19,9 @@ public class MovieLanguageService {
 		this.movieLanguageRepository=movieLanguageRepository;
 	}
 
-	public void saveMovieLanguage(MovieLanguage movieLanguage)
+	public MovieLanguage saveMovieLanguage(MovieLanguage movieLanguage)
 	{
-	movieLanguageRepository.save(movieLanguage);
+	    return movieLanguageRepository.save(movieLanguage);
 	}
 	public List<MovieLanguage> getAllMovieLanguage() {
 		return (List<MovieLanguage>) movieLanguageRepository.findAll();
