@@ -10,27 +10,17 @@ import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.moviesearch.model.Movies;
 import com.moviesearch.model.Person;
 import com.moviesearch.model.User;
@@ -64,6 +54,7 @@ import com.moviesearch.service.UserPersonalizationService;
 import com.moviesearch.service.UserRatingService;
 import com.moviesearch.service.UserService;
 
+@SuppressWarnings("deprecation")
 @Controller
 @MultipartConfig
 public class maincontroller {
@@ -254,9 +245,8 @@ public class maincontroller {
 	}
 	@RequestMapping(value = "/registeredUser")
 	public ModelAndView registerUser(HttpSession session) {
-		if(session.getAttribute("username")==null)
+		if(session.getAttribute("loggedout").toString().equals("Home"))
 		{
-
 			return  new ModelAndView("logout");
 		}
 		ModelAndView modelAndView=new ModelAndView("registeredUser");
@@ -281,16 +271,6 @@ public class maincontroller {
 
 	}
 
-	@RequestMapping(value = "/registeredUserPage")
-	public String registeredUserPage(HttpSession session) {
-		if(session.getAttribute("username")==null)
-		{
-
-			return "logout";
-		}
-		return "registeredUser";
-
-	}
 
 	@RequestMapping("/")
 	public ModelAndView home(HttpSession session) {
@@ -311,10 +291,12 @@ public class maincontroller {
 				int pid=mcp.getPersonId();
 				Person per= personService.findByPersonId(pid);
 				String personName=per.getPersonName();
+				if(!pnames.contains(personName))
 				pnames.add(personName);
 			}
-
+			
 		}
+		Collections.sort(pnames);
 		session.setAttribute("director",pnames);	
 
 		List<MovieCategoryPerson> MCP2 = movieCategoryPersonService.findall();
@@ -328,10 +310,12 @@ public class maincontroller {
 				int pid=mcp.getPersonId();
 				Person per= personService.findByPersonId(pid);
 				String personName=per.getPersonName();
+				if(!pnames2.contains(personName))
 				pnames2.add(personName);
 			}
 
 		}
+		Collections.sort(pnames2);
 		session.setAttribute("actor",pnames2);	
 		List<MovieCategoryPerson> MCP3 = movieCategoryPersonService.findall();
 		List<String>pnames3=new ArrayList<String>();
@@ -344,10 +328,12 @@ public class maincontroller {
 				int pid=mcp.getPersonId();
 				Person per= personService.findByPersonId(pid);
 				String personName=per.getPersonName();
+				if(!pnames3.contains(personName))
 				pnames3.add(personName);
 			}
 
 		}
+		Collections.sort(pnames3);
 		session.setAttribute("actress",pnames3);	
 
 		return modelAndView;
